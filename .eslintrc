@@ -1,0 +1,6 @@
+// eslint config for bicitech fed web app,
+// move to the repo to get more info, https://github.com/bici-fed/eslint-config-bici,
+// docs: https://bici-fed.github.io/FED/spec/javascript/javascript.
+{
+  "extends": "eslint-config-bici"
+}

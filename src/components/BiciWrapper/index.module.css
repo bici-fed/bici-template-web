@@ -1,0 +1,6 @@
+.wrapper {
+  height: calc(100vh - 66px);
+  margin: 12px;
+  padding: 12px;
+	background-color: #ffffff;
+}
