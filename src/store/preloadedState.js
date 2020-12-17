@@ -6,6 +6,9 @@ const preloadedState = {
     isLoading: false,
     count: 0,
   },
+  account: {
+    token: null,
+  },
 };
 
 export default preloadedState;

@@ -3,16 +3,17 @@
  */
 import { createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
+import { reduxPersistKey } from '@/configs';
 import rootReducer from '@/store/reducers';
 import initialState from '@/store/preloadedState';
 
 const { NODE_ENV } = process.env;
 
 function configStore(preloadedState) {
-  const persistConfig = { key: 'root', storage, whitelist: ['account'] };
+  const persistConfig = { key: reduxPersistKey, storage, whitelist: ['account'] };
   const loggerConfig = { collapsed: true, duration: true };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   const logger = createLogger(loggerConfig);
