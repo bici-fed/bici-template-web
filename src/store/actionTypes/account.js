@@ -1,6 +1,6 @@
 /**
  * @File: action types for account
  */
-export const UPDATE_TOKEN = 'UPDATE_TOKEN';
+export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 
-export default { UPDATE_TOKEN };
+export default { UPDATE_ACCOUNT };

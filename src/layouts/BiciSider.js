@@ -2,10 +2,12 @@
  * @File: Bici Sider
  */
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import _ from 'lodash';
 import BiciIconFont from '@/components/BiciIconFont';
-import { routes, configRoutes } from '@/configs/routes';
+import { menus, routes } from '@/configs/routes';
 import styles from './index.module.css';
 
 const { Sider } = Layout;
@@ -13,8 +15,14 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 function BiciSider(props) {
-  const { collapsed, menus, openKeys, selectedKeys, setOpenKeys, setSelectedKeys } = props;
-  const authorizedMenus = menus.filter((menu) => routes.some((route) => route.code === menu.code));
+  const { account, collapsed, openKeys, selectedKeys, setOpenKeys, setSelectedKeys } = props;
+  const { menuList } = account.info;
+  const authorizedCodes = menuList.map((menu) => menu.code);
+  const authorizedMenus = menus.filter((menu) => authorizedCodes.includes(menu.code));
+  const menuTree = authorizedMenus.map((menu) => {
+    const children = routes.filter((route) => route.path.includes(menu.path) && authorizedCodes.includes(route.code));
+    return { ...menu, children };
+  });
 
   const renderLogo = <div className={styles.logo}>Logo</div>;
 
@@ -26,9 +34,8 @@ function BiciSider(props) {
       selectedKeys={selectedKeys}
       onOpenChange={(keys) => setOpenKeys(keys)}
     >
-      {authorizedMenus.map((menu) => {
-        const { code, name, children } = menu;
-        const { icon } = routes.filter((route) => route.code === code)[0] || {};
+      {menuTree.map((menu) => {
+        const { code, icon, name, children } = menu;
         const title = (
           <>
             <BiciIconFont type={icon} className={styles.menuIcon} />
@@ -38,7 +45,7 @@ function BiciSider(props) {
         return (
           <SubMenu key={code} title={title}>
             {children.map((item) => {
-              const { path } = configRoutes.filter((route) => route.code === item.code)[0] || {};
+              const { path } = routes.filter((route) => route.code === item.code)[0] || {};
               return path ? (
                 <Menu.Item
                   key={item.code}
@@ -59,11 +66,13 @@ function BiciSider(props) {
   );
 
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed} className={styles.sider}>
+    <Sider trigger={null} collapsed={collapsed} className={styles.sider}>
       {renderLogo}
       {renderMenus}
     </Sider>
   );
 }
 
-export default BiciSider;
+const mapStateToProps = (state) => _.pick(state, 'account');
+
+export default connect(mapStateToProps)(BiciSider);

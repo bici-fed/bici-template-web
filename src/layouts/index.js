@@ -17,10 +17,10 @@ function BiciBasicDataApplicationLayout(props) {
   const { token } = account;
   const [collapsed, setCollapsed] = useState(false);
   const [openKeys, setOpenKeys] = useState([]);
-  const [selectedKeys, setSelectedKeys] = useState('');
+  const [selectedKeys, setSelectedKeys] = useState([]);
   const spining = isLoading && (
     <div className={styles.spin}>
-      <Spin tip="Loading..." spinning />
+      <Spin tip="页面加载中..." spinning />
     </div>
   );
 
@@ -30,7 +30,6 @@ function BiciBasicDataApplicationLayout(props) {
     <Layout className={styles.wrapper}>
       {spining}
       <BiciSider
-        menus={[]}
         collapsed={collapsed}
         openKeys={openKeys}
         selectedKeys={selectedKeys}

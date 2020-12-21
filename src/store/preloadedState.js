@@ -8,6 +8,7 @@ const preloadedState = {
   },
   account: {
     token: null,
+    info: {},
   },
 };
 

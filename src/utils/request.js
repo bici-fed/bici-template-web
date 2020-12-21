@@ -1,8 +1,7 @@
-/**
- * @File: a request wrapper based on axios,
- * axios is a Promise based HTTP client for the browser and node.js,
- * https://github.com/axios/axios.
- */
+// a request wrapper based on axios,
+// axios is a Promise based HTTP client for both the browser and node.js,
+// move to the repo for more configs, https://github.com/axios/axios.
+
 import axios from 'axios';
 import { biciNotification } from 'bici-transformers';
 import store from '@/store';
@@ -33,11 +32,12 @@ instance.interceptors.request.use(
     store.dispatch(startLoading());
     const { account } = store.getState();
     const { token } = account;
-    // fix ie get request cache
+    // in ie(@11-) browser, it caches all the GET requests by default,
+    // we fix this issue by reseting a custom header.
     const isIE = !!window.ActiveXObject || 'ActiveXObject' in window;
-    const ieCacheHeaders = { 'Cache-Control': 'no-cache', Pragma: 'no-cache' };
-    const extra = isIE ? ieCacheHeaders : {};
-    const headers = { ...config.headers, token, ...extra };
+    const ieExtraHeaders = { 'Cache-Control': 'no-cache', Pragma: 'no-cache' };
+    const extraHeaders = isIE ? ieExtraHeaders : {};
+    const headers = { ...config.headers, ...extraHeaders, token };
     return { ...config, headers };
   },
   (error) => {

@@ -5,7 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
-import { updateToken } from '@/store/actions/account';
+import { updateAccount } from '@/store/actions/account';
+import { menus, routes } from '@/configs/routes';
 import styles from './index.module.css';
 
 function Login(props) {
@@ -28,7 +29,8 @@ function Login(props) {
   };
 
   const onFinish = () => {
-    dispatch(updateToken('1GXdrzqLaNumPYUeUBc2fu'));
+    const menuList = [...menus, ...routes].map((route) => ({ code: route.code }));
+    dispatch(updateAccount({ token: '1GXdrzqLaNumPYUeUBc2fu', info: { name: 'Admin', menuList } }));
     history.push('/');
   };
 

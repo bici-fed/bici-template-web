@@ -3,6 +3,6 @@
  */
 import * as types from '@/store/actionTypes';
 
-export const updateToken = (payload) => ({ type: types.account.UPDATE_TOKEN, payload });
+export const updateAccount = (payload) => ({ type: types.account.UPDATE_ACCOUNT, payload });
 
-export default { updateToken };
+export default { updateAccount };
