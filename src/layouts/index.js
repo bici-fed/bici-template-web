@@ -1,5 +1,6 @@
 /**
- * @File: a common basic data application layout
+ * @File: basic data application layout, best practice for bici design spec,
+ * in most case, it contains header, sider, routes content and a spin for loading state.
  */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';

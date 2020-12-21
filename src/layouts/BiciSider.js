@@ -1,5 +1,5 @@
 /**
- * @File: Bici Sider
+ * @File: sider bar supports authorized menus
  */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -20,7 +20,12 @@ function BiciSider(props) {
   const authorizedCodes = menuList.map((menu) => menu.code);
   const authorizedMenus = menus.filter((menu) => authorizedCodes.includes(menu.code));
   const menuTree = authorizedMenus.map((menu) => {
-    const children = routes.filter((route) => route.path.includes(menu.path) && authorizedCodes.includes(route.code));
+    const children = routes.filter((route) => {
+      const { code, path } = route;
+      const authorized = authorizedCodes.includes(code);
+      const renderable = path.includes(menu.path) && path.split('/').length === 3;
+      return renderable && authorized;
+    });
     return { ...menu, children };
   });
 

@@ -1,5 +1,5 @@
 /**
- * @File: Bici Content
+ * @File: content layout supports authorised routes
  */
 import React from 'react';
 import { connect } from 'react-redux';

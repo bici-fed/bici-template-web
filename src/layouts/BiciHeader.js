@@ -1,5 +1,5 @@
 /**
- * @File: Bici Header
+ * @File: common header for data application layout
  */
 import React from 'react';
 import { withRouter } from 'react-router-dom';

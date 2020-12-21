@@ -1,5 +1,5 @@
 /**
- * @File: Breadcrumb for basic data application layout
+ * @File: breadcrumb for basic data application layout
  */
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
