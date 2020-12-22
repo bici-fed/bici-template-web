@@ -25,6 +25,7 @@
     "@ant-design/icons": "^4.3.0",
     "@craco/craco": "^6.0.0",
     "antd": "^4.9.3",
+    "antd-dayjs-webpack-plugin": "^1.0.1",
     "dayjs": "^1.9.7",
     "lodash": "^4.17.20",
     "react": "^17.0.1",

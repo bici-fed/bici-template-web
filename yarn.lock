@@ -2220,6 +2220,11 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
+antd-dayjs-webpack-plugin@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/antd-dayjs-webpack-plugin/download/antd-dayjs-webpack-plugin-1.0.1.tgz#cc31cc05c9bd69652a4bddab19eb49726bebe0d5"
+  integrity sha1-zDHMBcm9aWUqS92rGetJcmvr4NU=
+
 antd@^4.9.3:
   version "4.9.3"
   resolved "https://registry.npm.taobao.org/antd/download/antd-4.9.3.tgz#a9666fe3d7e0b18818e7f8bdb81abbf8a4a3e7d2"

@@ -7,6 +7,8 @@ const path = require('path');
 
 const CracoLessPlugin = require('craco-less');
 
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+
 // cover the ant design theme if need,
 // each modify var start with the character "@"
 const modifyVars = {
@@ -22,6 +24,7 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    plugins: [new AntdDayjsWebpackPlugin()],
   },
   babel: {
     presets: [],
