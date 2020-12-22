@@ -1,9 +1,9 @@
 /**
  * @File: sider bar supports authorized menus
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import _ from 'lodash';
 import BiciIconFont from '@/components/BiciIconFont';
@@ -14,12 +14,17 @@ const { Sider } = Layout;
 
 const { SubMenu } = Menu;
 
-function BiciSider(props) {
-  const { account, collapsed, openKeys, selectedKeys, setOpenKeys, setSelectedKeys } = props;
-  const { menuList } = account.info;
+function getDefaultOpenAndSelectedKeys(pathname) {
+  const path = pathname.split('/').slice(0, 3).join('/');
+  const { code: defaultOpenKey } = menus.filter((menu) => path.includes(menu.path))[0] || {};
+  const { code: defaultSelectedKey } = routes.filter((route) => route.path === path)[0] || {};
+  return { defaultOpenKey, defaultSelectedKey };
+}
+
+function getAuthorizedMenuTree(menuList) {
   const authorizedCodes = menuList.map((menu) => menu.code);
   const authorizedMenus = menus.filter((menu) => authorizedCodes.includes(menu.code));
-  const menuTree = authorizedMenus.map((menu) => {
+  return authorizedMenus.map((menu) => {
     const children = routes.filter((route) => {
       const { code, path } = route;
       const authorized = authorizedCodes.includes(code);
@@ -28,6 +33,22 @@ function BiciSider(props) {
     });
     return { ...menu, children };
   });
+}
+
+function BiciSider(props) {
+  const { account, collapsed, location } = props;
+  const { pathname } = location;
+  const { defaultOpenKey, defaultSelectedKey } = getDefaultOpenAndSelectedKeys(pathname);
+  const [openKeys, setOpenKeys] = useState([defaultOpenKey]);
+  const [selectedKeys, setSelectedKeys] = useState([defaultSelectedKey]);
+  const { menuList } = account.info;
+  const menuTree = getAuthorizedMenuTree(menuList);
+
+  useEffect(() => {
+    const newOpenKeys = collapsed ? [] : [defaultOpenKey];
+    setOpenKeys(newOpenKeys);
+    setSelectedKeys([defaultSelectedKey]);
+  }, [pathname, collapsed]);
 
   const renderLogo = <div className={styles.logo}>Logo</div>;
 
@@ -51,18 +72,17 @@ function BiciSider(props) {
           <SubMenu key={code} title={title}>
             {children.map((item) => {
               const { path } = routes.filter((route) => route.code === item.code)[0] || {};
-              return path ? (
+              return (
                 <Menu.Item
                   key={item.code}
                   onClick={() => {
-                    // if don't need subMenu auto close, comment out the following code
-                    setOpenKeys([code]);
+                    setOpenKeys(collapsed ? [] : [code]);
                     setSelectedKeys([item.code]);
                   }}
                 >
                   <Link to={path}>{item.name}</Link>
                 </Menu.Item>
-              ) : null;
+              );
             })}
           </SubMenu>
         );
@@ -71,7 +91,7 @@ function BiciSider(props) {
   );
 
   return (
-    <Sider trigger={null} collapsed={collapsed} className={styles.sider}>
+    <Sider collapsible trigger={null} collapsed={collapsed} className={styles.sider}>
       {renderLogo}
       {renderMenus}
     </Sider>
@@ -80,4 +100,4 @@ function BiciSider(props) {
 
 const mapStateToProps = (state) => _.pick(state, 'account');
 
-export default connect(mapStateToProps)(BiciSider);
+export default withRouter(connect(mapStateToProps)(BiciSider));

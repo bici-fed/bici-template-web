@@ -20,8 +20,8 @@ export const menus = [
 export const routes = [
   { path: '/system/account', name: '个人信息', code: 'XTGL_GRXX', exact: false, component: UserInfo },
   { path: '/system/dictionary', name: '数据字典', code: 'XTGL_SJZD', exact: false, component: Dictionary },
-  { path: '/basicdata/device', name: '设备', code: 'JCSJ_SB', exact: true, component: Device },
   { path: '/basicdata/device/create', name: '新建', code: 'JCSJ_SBXJ', exact: false, component: DeviceCreate },
+  { path: '/basicdata/device', name: '设备', code: 'JCSJ_SB', exact: true, component: Device },
   { path: '/basicdata/device/detail/:id', name: '详情', code: 'JCSJ_SBXQ', exact: false, component: DeviceDetail },
   { path: '/basicdata/datapoint', name: '数据点', code: 'JCSJ_SJD', exact: false, component: DataPoint },
 ];

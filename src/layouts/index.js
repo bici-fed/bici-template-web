@@ -17,8 +17,7 @@ function BiciBasicDataApplicationLayout(props) {
   const { isLoading } = loading;
   const { token } = account;
   const [collapsed, setCollapsed] = useState(false);
-  const [openKeys, setOpenKeys] = useState([]);
-  const [selectedKeys, setSelectedKeys] = useState([]);
+
   const spining = isLoading && (
     <div className={styles.spin}>
       <Spin tip="页面加载中..." spinning />
@@ -30,13 +29,7 @@ function BiciBasicDataApplicationLayout(props) {
   return (
     <Layout className={styles.wrapper}>
       {spining}
-      <BiciSider
-        collapsed={collapsed}
-        openKeys={openKeys}
-        selectedKeys={selectedKeys}
-        setOpenKeys={setOpenKeys}
-        setSelectedKeys={setSelectedKeys}
-      />
+      <BiciSider collapsed={collapsed} />
       <Layout>
         <BiciHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <BiciContent />
